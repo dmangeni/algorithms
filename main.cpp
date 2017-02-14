@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <algorithm>
+#include <unordered_map>
+#include "algorithm.h"
 
 using namespace std;
 
@@ -74,15 +76,58 @@ day sorted first and then by traderName sorted
  
 */
 
+int number_needed(string a, string b) {
+    unordered_map<char, int>counter;
+    
+    unsigned int deletions = 0;
+    
+    //instantiate a count map
+    for(char i = 'a'; i <= 'z'; i++){
+        counter[i] = -1;
+    }
+    
+    //Increase the counter for each character
+    for(int i = 0; i < a.length(); i++){
+        counter[a[i]]++;
+    }
+    
+    //increase the counter for each character and
+    //check if the counter is an even number
+    for(int i = 0; i < b.length(); i++){
+        counter[b[i]]++;
+    }
+    
+    for(auto &it : counter){
+        if((it.second % 2) == 0){
+            deletions++;
+        }
+    }
+    return deletions;
+}
+
 int main(int argc, const char * argv[]) {
     
-    //Test cases. Will be implementing these using CATCH soon!
+    /*/Test cases. Will be implementing these using CATCH soon!
     
     cout << find_maximum_replacement(623315) <<endl; //63315
     cout << find_maximum_replacement(233614) <<endl; //33614
     cout << find_maximum_replacement(123) <<endl; //23
     cout << find_maximum_replacement(1234) <<endl; //234
     cout << find_maximum_replacement(2321) <<endl; //321
-    cout << find_maximum_replacement(23) <<endl;
+    cout << find_maximum_replacement(23) <<endl;*/
+    
+    /*vector<int>nums = { 1, 3, 5, 6, 7, 9};
+    int target = 12;
+    
+    Algorithm a;
+    vector<int>temp = a.twoSum(nums, target);
+    a.print(temp);*/
+    
+    string a = "cde";
+    string b = "abc";
+    
+    cout << number_needed(a,b) <<endl;
+    
+    return 0;
     
 }
